@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -94,6 +95,7 @@ public class UploadServlet extends HttpServlet {
 			}
 			inputStream.close();
 			fileOutputStream.close();
+			fileitem.delete();//上传完成后  删除临时文件
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -112,7 +114,13 @@ public class UploadServlet extends HttpServlet {
 	//普通表单
 	private void processFormField(FileItem fileItem) {
 		String fieldName = fileItem.getFieldName();
-		String value = fileItem.getString();
+		String value = null;
+		try {
+			value = fileItem.getString("UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		System.out.println(fieldName+"="+value);
 	}
 	
