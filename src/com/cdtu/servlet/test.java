@@ -13,6 +13,7 @@ public class test {
 		int b=150;
 		System.out.println(a==b);
 		System.out.println(a.equals(b));
+		
 	}
 
 }
